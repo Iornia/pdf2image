@@ -4,8 +4,7 @@ import { saveAs } from 'file-saver'
 import * as pdfjsLib from 'pdfjs-dist'
 
 // Use CDN worker to simplify setup
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@4.6.82/build/pdf.worker.min.mjs'
-
+pdfjsLib.GlobalWorkerOptions.workerSrc = import.meta.env.BASE_URL + 'pdf.worker.min.mjs'
 function parsePageSpec(spec, pageCount) {
   if (!spec || spec.trim() === '') return Array.from({ length: pageCount }, (_, i) => i + 1)
   const wanted = new Set()
