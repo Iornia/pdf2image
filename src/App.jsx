@@ -30,7 +30,7 @@ export default function App() {
   const [pdfDoc, setPdfDoc] = useState(null)
   const [pageCount, setPageCount] = useState(0)
   const [scale, setScale] = useState(2)
-  const [quality, setQuality] = useState(0.92)
+  const [quality, setQuality] = useState(1)
   const [pageSpec, setPageSpec] = useState('')
   const [bg, setBg] = useState('#ffffff')
   const [busy, setBusy] = useState(false)
