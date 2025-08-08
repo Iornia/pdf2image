@@ -2,8 +2,14 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
 import * as pdfjsLib from 'pdfjs-dist'
-import pdfWorker from 'pdfjs-dist/build/pdf.worker.mjs?url'
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker
+// Use the worker hosted in /public with the correct base path for GitHub Pages
+// Prefer an explicit module Worker (PDF.js v4 ESM) and fall back to workerSrc
+const workerUrl = `${import.meta.env.BASE_URL}pdf.worker.min.mjs`
+try {
+  pdfjsLib.GlobalWorkerOptions.workerPort = new Worker(workerUrl, { type: 'module' })
+} catch {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl
+}
 
 function parsePageSpec(spec, pageCount) {
   if (!spec || spec.trim() === '') return Array.from({ length: pageCount }, (_, i) => i + 1)
