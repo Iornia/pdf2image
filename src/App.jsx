@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
 import * as pdfjsLib from 'pdfjs-dist'
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.mjs?url'
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker
 
-// Use CDN worker to simplify setup
-pdfjsLib.GlobalWorkerOptions.workerSrc = import.meta.env.BASE_URL + 'pdf.worker.min.mjs'
 function parsePageSpec(spec, pageCount) {
   if (!spec || spec.trim() === '') return Array.from({ length: pageCount }, (_, i) => i + 1)
   const wanted = new Set()
